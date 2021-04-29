@@ -1,0 +1,122 @@
+﻿@model ajax.Models.EmployeeModel
+
+@{
+    Layout = null;
+}
+@using ajax.Models;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container text-center">
+        <form id="myForm" style="width:40%;font-size:20px; margin-top:10px;">
+            @Html.DropDownListFor(model => model.DepartmentId, ViewBag.DepartmentList as SelectList, "--select--", new { @class = "form-control", @id = "drop_ID" })
+
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Name" })
+
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Address" })
+
+            @Html.TextBoxFor(model => model.SiteName, new { @class = "form-control", @placeholder = "SiteName" })
+
+            <input type="reset" value="Submit" class="btn btn-block btn-primary " id="btnSubmit" />
+        </form>
+        @*<div style="text-align:center;display:none" id="loaderDiv">
+            <img src="~/image/card_1.png" width="200" height="120" />
+        </div>*@
+        <table id="tblEmployee" class="table table-bordered table-striped table-responsive table-hover">
+            <thead>
+                <tr>
+                    <th align="center">ID</th>
+                    <th align="center">Employee Name</th>
+                    <th align="center">Department Id</th>
+                    <th align="center">Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    DbManage db = new DbManage();
+                    foreach (var item in db.Employees)
+                    {
+                        <tr>
+                            <td>@item.EmployeeId</td>
+                            <td>@item.Name</td>
+                            <td>@item.DepartmentId</td>
+                            <td>@item.Address</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#drop_ID").on('change', function () {
+                var level = $(this).val();
+                alert(level);
+                //$("#tblEmployee tbody tr").remove();
+                var data = '@Url.Action("getListEmp", "Employee")?value=' + level;
+                //debugger
+                $("table tr").each(function (Employees) {
+                    if (Employees !== 0) {
+                        var id = $(this).find("td:nth-child(3)").text();
+                        if (id.indexOf(level) !== 0 ) {
+                            $(this).hide();
+                        }
+                        else {
+                            $(this).show();
+                        }
+                    }
+                })
+                //$.each(data, function (i, item) {
+                //    var rows = "<tr>" +
+                //        "<td>" + item.EmployeeId + "</td>" +
+                //        "<td>" + item.Name + "</td>" +
+                //        "<td>" + item.DepartmentId + "</td>" +
+                //        "<td>" + item.Address + "</td>" +
+                //        "</tr>";
+                //    $('#tblEmployee tbody').append(rows);
+                //});
+                return false;
+            })
+            $("#btnSubmit").click(function () {
+                //debugger
+
+                var data = $("#myForm").serialize();
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Employee/Index",
+                    data: data,
+                    success: function (response) {
+                        if (response != null) {
+                            //alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                            alert("you are done");
+                            $.each(data, function (i, item) {
+                                var rows = "<tr>" +
+                                    "<td>" + item.EmployeeId + "</td>" +
+                                    "<td>" + item.Name + "</td>" +
+                                    "<td>" + item.DepartmentId + "</td>" +
+                                    "<td>" + item.Address + "</td>" +
+                                    "</tr>";
+                                $('#tblEmployee tbody').append(rows);
+                            });
+                        } else {
+                            alert("Something went wrong");
+                        }
+                    }
+
+                })
+            })
+        });
+    </script>
+</body>
+</html>

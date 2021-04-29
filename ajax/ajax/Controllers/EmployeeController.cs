@@ -28,7 +28,12 @@ namespace ajax.Controllers
             return listEmp;
         }
 
-
+        public ActionResult getListEmp()
+        {
+            DbManage db = new DbManage();
+            List<Employee> listEmp = db.Employees.ToList();
+            return PartialView("TableData",listEmp);
+        }
 
         [HttpPost]
         public ActionResult Index(EmployeeModel model)

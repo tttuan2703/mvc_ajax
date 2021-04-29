@@ -60,9 +60,9 @@
         $(document).ready(function () {
             $("#drop_ID").on('change', function () {
                 var level = $(this).val();
-                alert(level);
+                //alert(level);
                 //$("#tblEmployee tbody tr").remove();
-                var data = '@Url.Action("getListEmp", "Employee")?value=' + level;
+                //var data = '@Url.Action("getListEmp", "Employee")?value=' + level;
                 //debugger
                 $("table tr").each(function (Employees) {
                     if (Employees !== 0) {
@@ -100,15 +100,8 @@
                         if (response != null) {
                             //alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
                             alert("you are done");
-                            $.each(data, function (i, item) {
-                                var rows = "<tr>" +
-                                    "<td>" + item.EmployeeId + "</td>" +
-                                    "<td>" + item.Name + "</td>" +
-                                    "<td>" + item.DepartmentId + "</td>" +
-                                    "<td>" + item.Address + "</td>" +
-                                    "</tr>";
-                                $('#tblEmployee tbody').append(rows);
-                            });
+                            $("#tblEmployee").load("/Employee/getListEmp")
+                            //LoadData();
                         } else {
                             alert("Something went wrong");
                         }
@@ -116,6 +109,34 @@
 
                 })
             })
+            function LoadData() {
+                $("#tblEmployee tbody tr").remove();
+                $.ajax({
+                type: 'POST',
+                url: '@Url.Action("getListEmp")',
+                dataType: 'json',
+                data: { id: '' },
+                success: function (data) {
+                    var items = '';
+                    $.each(data, function (i, item) {
+                        var rows = "<tr>"
+                        "<td>" + item.EmployeeId + "</td>" +
+                            "<td>" + item.Name + "</td>" +
+                            "<td>" + item.DepartmentId + "</td>" +
+                            "<td>" + item.Address + "</td>" +
+                        + "</tr>";
+                        $('#tblEmployee tbody').append(rows);
+                    });
+                },
+                error: function (ex) {
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+            return false;
+        }
         });
     </script>
 </body>

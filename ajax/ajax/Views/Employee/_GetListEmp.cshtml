@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ajax.Models.Employee>
+@{ 
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.EmployeeId</td>
+            <td>@item.Name</td>
+            <td>@item.DepartmentId</td>
+            <td>@item.Address</td>
+        </tr>
+    }
+}

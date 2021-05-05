@@ -4,31 +4,31 @@
     <Key>
       <PropertyRef Name="DepartmentId" />
     </Key>
-    <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DepartmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DepartmentId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="DepartmentName" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
       <PropertyRef Name="EmployeeId" />
     </Key>
-    <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="Name" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
     <Property Name="DepartmentId" Type="Int32" />
-    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Address" MaxLength="150" FixedLength="false" Unicode="false" Type="String" />
     <NavigationProperty Name="Department" Relationship="Self.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
   </EntityType>
   <EntityType Name="Site">
     <Key>
       <PropertyRef Name="SiteId" />
     </Key>
-    <Property Name="SiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SiteId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
     <Property Name="EmployeeId" Type="Int32" />
-    <Property Name="SiteName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SiteName" MaxLength="150" FixedLength="false" Unicode="true" Type="String" />
   </EntityType>
   <Association Name="FK_Employee_Department">
-    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <End Type="Self.Department" Multiplicity="0..1" Role="Department" />
+    <End Type="Self.Employee" Multiplicity="*" Role="Employee" />
     <ReferentialConstraint>
       <Principal Role="Department">
         <PropertyRef Name="DepartmentId" />
@@ -43,8 +43,8 @@
     <EntitySet Name="Employees" EntityType="Self.Employee" />
     <EntitySet Name="Sites" EntityType="Self.Site" />
     <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
-      <End Role="Department" EntitySet="Departments" />
-      <End Role="Employee" EntitySet="Employees" />
+      <End EntitySet="Departments" Role="Department" />
+      <End EntitySet="Employees" Role="Employee" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

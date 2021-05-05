@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bc3dca9e6caa47c8a20d5186cf0b10ee" Name="Diagram1">
-        <EntityTypeShape EntityType="MVCTutorialModel.Department" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MVCTutorialModel.Employee" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MVCTutorialModel.Site" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="MVCTutorialModel.FK_Employee_Department" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MVCTutorialModel.Department" PointX="0.75" PointY="1.125" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCTutorialModel.Employee" PointX="3.125" PointY="0.875" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCTutorialModel.Site" PointX="0.75" PointY="3.75" Width="1.5" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="MVCTutorialModel.FK_Employee_Department" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

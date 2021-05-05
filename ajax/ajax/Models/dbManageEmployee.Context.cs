@@ -13,9 +13,9 @@ namespace ajax.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DbManage : DbContext
+    public partial class MVCTutorialEntities : DbContext
     {
-        public DbManage()
+        public MVCTutorialEntities()
             : base("name=MVCTutorialEntities")
         {
         }

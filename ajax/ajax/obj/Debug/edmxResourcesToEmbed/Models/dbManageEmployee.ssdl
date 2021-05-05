@@ -4,29 +4,29 @@
     <Key>
       <PropertyRef Name="DepartmentId" />
     </Key>
-    <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DepartmentName" Type="nvarchar" MaxLength="100" />
+    <Property Name="DepartmentId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="DepartmentName" MaxLength="100" Type="nvarchar" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
       <PropertyRef Name="EmployeeId" />
     </Key>
-    <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="EmployeeId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="Name" MaxLength="50" Type="varchar" />
     <Property Name="DepartmentId" Type="int" />
-    <Property Name="Address" Type="varchar" MaxLength="150" />
+    <Property Name="Address" MaxLength="150" Type="varchar" />
   </EntityType>
   <EntityType Name="Sites">
     <Key>
       <PropertyRef Name="SiteId" />
     </Key>
-    <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SiteId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
     <Property Name="EmployeeId" Type="int" />
-    <Property Name="SiteName" Type="nvarchar" MaxLength="150" />
+    <Property Name="SiteName" MaxLength="150" Type="nvarchar" />
   </EntityType>
   <Association Name="FK_Employee_Department">
-    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <End Type="Self.Department" Multiplicity="0..1" Role="Department" />
+    <End Type="Self.Employee" Multiplicity="*" Role="Employee" />
     <ReferentialConstraint>
       <Principal Role="Department">
         <PropertyRef Name="DepartmentId" />
@@ -41,8 +41,8 @@
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
-      <End Role="Department" EntitySet="Department" />
-      <End Role="Employee" EntitySet="Employee" />
+      <End EntitySet="Department" Role="Department" />
+      <End EntitySet="Employee" Role="Employee" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
